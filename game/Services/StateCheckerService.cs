@@ -1,9 +1,10 @@
 using System;
 using System.Linq;
+using game.Models;
 
 namespace game.Services
 {
-    public class StateCheckerServiceService
+    public class StateCheckerService
     {
         public int CheckGameState(GameBoard game)
         {
@@ -25,7 +26,7 @@ namespace game.Services
 
         private int _checkColumns(GameBoard game)
         {
-            double[][] columns;
+            var columns = new int[3][];
 
             for (int i = 0; i < 3; i++)
             {
