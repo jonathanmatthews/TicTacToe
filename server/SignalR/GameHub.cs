@@ -18,16 +18,7 @@ namespace server.SignalR
 
         public async Task ConnectToGame(Guid gameId)
         {
-            GameService game;
-            try
-            {
-                game = _hostService.Games[gameId];
-            }
-            catch (KeyNotFoundException)
-            {
-                await Clients.Caller.SendAsync("gameNotFound");
-                return;
-            }
+            var game = await _getGame(gameId);
             
             if (game.ClientId1 == null)
             {
@@ -49,9 +40,26 @@ namespace server.SignalR
             }
         }
 
-        public async Task MakeMove(Guid gameId, int playerNumber, int row, int column)
+        public async Task MakeMove(Guid gameId, int row, int column)
         {
+            var game = await _getGame(gameId);
+            game.MakeMove(Context.ConnectionId, row, column);
+        }
 
+        private async Task<GameService> _getGame(Guid gameId)
+        {
+            GameService game;
+            try
+            {
+                game = _hostService.Games[gameId];
+            }
+            catch (KeyNotFoundException)
+            {
+                await Clients.Caller.SendAsync("gameNotFound");
+                return null;
+            }
+
+            return game;
         }
     }
 }
