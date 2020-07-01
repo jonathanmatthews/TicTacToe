@@ -113,7 +113,7 @@
       "enumNameGeneratorType": null,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": "client/src/app/game-api.service.ts",
+      "output": "client/src/app/services/game-api.service.ts",
       "newLineBehavior": "Auto"
     }
   }
