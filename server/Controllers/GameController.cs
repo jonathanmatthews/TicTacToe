@@ -16,9 +16,9 @@ namespace server.Controllers
 
         [HttpGet]
         [Route("[controller]/start")]
-        public Guid StartGame()
+        public string StartGame()
         {
-            return _hostService.CreateGame();
+            return _hostService.CreateGame().ToString();
         }
     }
 }

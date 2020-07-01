@@ -16,9 +16,9 @@ namespace server.SignalR
             _hostService = hostService;
         }
 
-        public async Task ConnectToGame(Guid gameId)
+        public async Task ConnectToGame(string gameId)
         {
-            var game = _hostService.GetGame(gameId);
+            var game = _hostService.GetGame(Guid.Parse(gameId));
 
             if (game == null)
             {
@@ -47,9 +47,9 @@ namespace server.SignalR
             }
         }
 
-        public async Task MakeMove(Guid gameId, int row, int column)
+        public async Task MakeMove(string gameId, int row, int column)
         {
-            var game = _hostService.GetGame(gameId);
+            var game = _hostService.GetGame(Guid.Parse(gameId));
 
             if (game == null)
             {
