@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using game.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -39,6 +40,8 @@ namespace server
             services.AddSignalR();
             services.AddControllers();
             services.AddSingleton<GameHostService>();
+            services.AddTransient<GameService>();
+            services.AddTransient<StateCheckerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

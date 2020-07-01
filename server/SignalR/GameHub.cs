@@ -18,8 +18,14 @@ namespace server.SignalR
 
         public async Task ConnectToGame(Guid gameId)
         {
-            var game = await _getGame(gameId);
-            
+            var game = _hostService.GetGame(gameId);
+
+            if (game == null)
+            {
+                await Clients.Caller.SendAsync("gameNotFound");
+                return;
+            }
+
             if (game.ClientId1 == null)
             {
                 game.ClientId1 = Context.ConnectionId;
@@ -30,7 +36,8 @@ namespace server.SignalR
             {
                 game.ClientId2 = Context.ConnectionId;
                 await Clients.Caller.SendAsync("addedToGame", 2);
-                await Clients.Clients(game.ClientId1, game.ClientId2).SendAsync("gameStart");
+                await Clients.Clients(game.ClientId1, game.ClientId2)
+                    .SendAsync("gameStart");
                 return;
             }
             else
@@ -42,24 +49,38 @@ namespace server.SignalR
 
         public async Task MakeMove(Guid gameId, int row, int column)
         {
-            var game = await _getGame(gameId);
-            game.MakeMove(Context.ConnectionId, row, column);
-        }
+            var game = _hostService.GetGame(gameId);
 
-        private async Task<GameService> _getGame(Guid gameId)
-        {
-            GameService game;
-            try
-            {
-                game = _hostService.Games[gameId];
-            }
-            catch (KeyNotFoundException)
+            if (game == null)
             {
                 await Clients.Caller.SendAsync("gameNotFound");
-                return null;
+                return;
             }
 
-            return game;
+            try
+            {
+                game.MakeMove(Context.ConnectionId, row, column);
+            }
+            catch (InvalidOperationException e)
+            {
+                await Clients.Caller.SendAsync("invalidMove", e.Message);
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                await Clients.Caller.SendAsync("invalidMove", e.Message);
+            }
+
+
+            await Clients.Clients(game.ClientId1, game.ClientId2)
+                .SendAsync("gameBoard", game.Game);
+            await Clients.Clients(game.ClientId1, game.ClientId2)
+                .SendAsync("nextToMove", game.NextToMove);
+            
+            if (game.WinningPlayer > 0)
+            {
+                await Clients.Clients(game.ClientId1, game.ClientId2)
+                    .SendAsync("winningPlayer", game.WinningPlayer);
+            }
         }
     }
 }

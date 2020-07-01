@@ -1,23 +1,44 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using game.Models;
 using game.Services;
 
 namespace server.Services
 {
     public class GameHostService
     {
-        public Dictionary<Guid, GameService> Games;
+        private Dictionary<Guid, GameService> _games;
+        private Func<GameService> _createGameService;
 
-        public GameHostService()
+        public GameHostService(IServiceProvider serviceProvider)
         {
-            Games = new Dictionary<Guid, GameService>();
+            _games = new Dictionary<Guid, GameService>();
+            _createGameService = () => (GameService)serviceProvider
+                .GetService(typeof(GameService));
         }
 
         public Guid CreateGame()
         {
             var gameId = Guid.NewGuid();
-            Games.Add(gameId, new GameService(new StateCheckerService()));
+            _games.Add(gameId, _createGameService());
             return gameId;
+        }
+
+        public GameService GetGame(Guid gameId)
+        {
+            GameService game;
+            try
+            {
+                game = _games[gameId];
+            }
+            catch (KeyNotFoundException)
+            {
+                
+                return null;
+            }
+
+            return game;
         }
     }
 }

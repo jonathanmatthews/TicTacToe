@@ -47,6 +47,10 @@ namespace game.Services
 
         private void _validateMove(int playerNumber, int row, int column)
         {
+            if (WinningPlayer > 0)
+            {
+                throw new InvalidOperationException($"The game has already been completed.");
+            }
             if (playerNumber != NextToMove)
             {
                 throw new InvalidOperationException($"It is not player {playerNumber}'s turn to move.");
