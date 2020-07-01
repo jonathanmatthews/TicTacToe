@@ -23,9 +23,11 @@
       "ignoreObsoleteProperties": false,
       "allowReferencesWithProperties": false,
       "excludedTypeNames": [],
-      "serviceHost": null,
-      "serviceBasePath": null,
-      "serviceSchemes": [],
+      "serviceHost": "localhost:5001",
+      "serviceBasePath": "",
+      "serviceSchemes": [
+        "https"
+      ],
       "infoTitle": "My Title",
       "infoDescription": null,
       "infoVersion": "1.0.0",
@@ -64,7 +66,7 @@
       "httpClass": "HttpClient",
       "withCredentials": false,
       "useSingletonProvider": false,
-      "injectionTokenType": "OpaqueToken",
+      "injectionTokenType": "InjectionToken",
       "rxJsVersion": 6.0,
       "dateTimeType": "Date",
       "nullValue": "Undefined",

@@ -5,6 +5,10 @@
     "title": "My Title",
     "version": "1.0.0"
   },
+  "host": "localhost:5001",
+  "schemes": [
+    "https"
+  ],
   "consumes": [
     "application/json"
   ],
