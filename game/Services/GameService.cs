@@ -47,6 +47,10 @@ namespace game.Services
 
         private void _validateMove(int playerNumber, int row, int column)
         {
+            if (ClientId1 == null || ClientId2 == null)
+            {
+                throw new InvalidOperationException("The game has not yet begun.");
+            }
             if (WinningPlayer > 0)
             {
                 throw new InvalidOperationException($"The game has already been completed.");

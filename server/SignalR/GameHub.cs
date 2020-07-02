@@ -30,12 +30,14 @@ namespace server.SignalR
             {
                 game.ClientId1 = Context.ConnectionId;
                 await Clients.Caller.SendAsync("addedToGame", 1);
+                await Clients.Caller.SendAsync("gameBoard", game.Game);
                 return;
             }
             else if (game.ClientId2 == null)
             {
                 game.ClientId2 = Context.ConnectionId;
                 await Clients.Caller.SendAsync("addedToGame", 2);
+                await Clients.Caller.SendAsync("gameBoard", game.Game);
                 await Clients.Clients(game.ClientId1, game.ClientId2)
                     .SendAsync("gameStart");
                 return;
