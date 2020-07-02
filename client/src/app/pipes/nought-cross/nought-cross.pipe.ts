@@ -6,10 +6,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class NoughtCrossPipe implements PipeTransform {
 
   transform(cellPlayerNumber: number): string {
-    switch(cellPlayerNumber) {
-      case 1: return 'X';
-      case 2: return 'O';
-      default: return '';
+    switch (cellPlayerNumber) {
+      case 1:
+        return 'X';
+      case 2:
+        return 'O';
+      default:
+        return '';
     }
   }
 }
