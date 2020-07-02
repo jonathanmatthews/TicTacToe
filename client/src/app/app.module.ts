@@ -8,11 +8,13 @@ import { GameComponent } from './game/game.component';
 import { GameClient } from './services/game-api.service';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { HubConnectionBuilder } from '@aspnet/signalr';
+import { NoughtCrossPipe } from './pipes/nought-cross/nought-cross.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    GameComponent
+    GameComponent,
+    NoughtCrossPipe
   ],
   imports: [
     BrowserModule,
