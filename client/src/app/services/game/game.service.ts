@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { SignalrService } from '../signalr/signalr.service';
 import { GameClient } from '../game-api.service';
 import { GameBoard } from 'src/app/server-models/gameBoard';
-import { Subject, BehaviorSubject, Observable } from 'rxjs';
+import { Subject, BehaviorSubject, Observable, of } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class GameService {
   public myTurn = new BehaviorSubject<boolean>(false);
   public victory = new BehaviorSubject<boolean>(false);
   public game = new BehaviorSubject<GameBoard>(new GameBoard());
-  public connectionError = new  Subject<string>();
+  public error = new  Subject<string>();
   public gameId = new BehaviorSubject<string>('');
 
   private validMove = new Subject<boolean>();
@@ -44,7 +44,8 @@ export class GameService {
       this.signalr.makeMove(this.gameId.value, row, column);
       return this.validMove.pipe(take(1));
     } else {
-      throw new Error('Unable to make move, not in game.');
+      this.error.next('Unable to make move, not in game.');
+      return of(false);
     }
   }
 
@@ -53,10 +54,10 @@ export class GameService {
   }
 
   private registerErrorMessages(): void {
-    this.signalr.gameFull.subscribe(() => this.connectionError.next('Could not connect to the specified game (already full).'));
+    this.signalr.gameFull.subscribe(() => this.error.next('Could not connect to the specified game (already full).'));
     this.signalr.invalidMove.subscribe(() => this.validMove.next(false));
     this.signalr.gameNotFound.subscribe(() => {
-      this.connectionError.next('Could not connect to the specified game (not found).');
+      this.error.next('Could not connect to the specified game (not found).');
       this.inGame.next(false);
       this.game.next(new GameBoard());
       this.playerNumber = null;
@@ -69,7 +70,7 @@ export class GameService {
     this.signalr.gameStart.subscribe(() => this.inGame.next(true));
     this.signalr.nextToMove.subscribe(nextNumber => this.myTurn.next(nextNumber === this.playerNumber));
     this.signalr.validMove.subscribe(() => this.validMove.next(true));
-
+    this.signalr.gameBoard.subscribe(gameBoard => this.game.next(gameBoard));
     this.signalr.winningPlayer.subscribe(winnerNumber => {
       this.victory.next(winnerNumber === this.playerNumber);
       this.inGame.next(false);

@@ -1,7 +1,7 @@
 export class GameBoard {
-    Rows: number[][];
-    
+    rows: number[][];
+
     constructor() {
-        this.Rows = [[0, 0, 0],[0, 0, 0],[0, 0, 0]];
+        this.rows = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
     }
 }

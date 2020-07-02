@@ -47,8 +47,12 @@ export class SignalrService {
     this.hub.on('gameStart', () => this.gameStart.next());
     this.hub.on('invalidMove', () => () => this.invalidMove.next());
     this.hub.on('validMove', () => this.validMove.next());
-    this.hub.on('gameBoard', (gameBoard) => this.gameBoard.next(gameBoard));
     this.hub.on('nextToMove', (playerNumber) => this.nextToMove.next(playerNumber));
     this.hub.on('winningPlayer', (winningPlayer) => this.winningPlayer.next(winningPlayer));
+    this.hub.on('gameBoard', (gameBoard) => this.gameBoard.next(gameBoard));
+    // this.hub.on('gameBoard', (gameBoard: GameBoard) => {
+    //   console.log(gameBoard);
+    //   this.gameBoard.next(gameBoard);
+    // });
   }
 }
