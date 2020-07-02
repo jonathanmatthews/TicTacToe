@@ -82,6 +82,16 @@ namespace server.SignalR
                 await Clients.Clients(game.ClientId1, game.ClientId2)
                     .SendAsync("winningPlayer", game.WinningPlayer);
             }
+
+            foreach (var gameRow in game.Game.Rows)
+            {
+                foreach (var cell in gameRow)
+                {
+                    System.Console.Write(cell + " ");
+                }
+                System.Console.Write("\n");
+            }
+            System.Console.Write("\n");
         }
     }
 }

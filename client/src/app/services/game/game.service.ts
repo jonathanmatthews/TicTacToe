@@ -16,11 +16,11 @@ export class GameService {
   public playerNumber: number;
   public myTurn = new BehaviorSubject<boolean>(false);
   public victory = new BehaviorSubject<boolean>(false);
-  public game = new BehaviorSubject<GameBoard>(null);
+  public game = new BehaviorSubject<GameBoard>(new GameBoard());
   public connectionError = new  Subject<string>();
   public gameId = new BehaviorSubject<string>('');
 
-  private validMove: Subject<boolean>;
+  private validMove = new Subject<boolean>();
 
   constructor(private api: GameClient, private signalr: SignalrService) {
     this.registerErrorMessages();
@@ -58,7 +58,7 @@ export class GameService {
     this.signalr.gameNotFound.subscribe(() => {
       this.connectionError.next('Could not connect to the specified game (not found).');
       this.inGame.next(false);
-      this.game.next(null);
+      this.game.next(new GameBoard());
       this.playerNumber = null;
       this.gameId.next('');
     });

@@ -37,7 +37,7 @@ export class SignalrService {
   }
 
   makeMove = (gameId: string, row: number, column: number): void => {
-    this.hub.invoke(gameId, row, column);
+    this.hub.invoke('makeMove', gameId, row, column);
   }
 
   private addListeners = (): void => {

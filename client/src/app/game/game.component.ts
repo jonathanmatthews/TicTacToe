@@ -12,7 +12,16 @@ export class GameComponent implements OnInit {
   public gameIdInput: string;
 
   constructor(public game: GameService) { }
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.game.game.subscribe(val => {
+      if (val) {
+        console.log(`${val[0][0]} ${val[0][1]} ${val[0][2]}`);
+        console.log(`${val[1][0]} ${val[1][1]} ${val[1][2]}`);
+        console.log(`${val[2][0]} ${val[2][1]} ${val[2][2]}`);
+        console.log('\n');
+      }
+    });
+  }
 
   createGame(): void {
     console.log("try to start");
