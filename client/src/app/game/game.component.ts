@@ -24,7 +24,6 @@ export class GameComponent implements OnInit {
   }
 
   createGame(): void {
-    console.log("try to start");
     this.game.createGame();
   }
 

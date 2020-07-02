@@ -28,7 +28,7 @@ export class SignalrService {
       .start()
       .then(() => console.log('SignalR connection started'))
       .catch(err => console.log('Error while starting SignalR connection: ' + err));
-    
+
     this.addListeners();
   }
 

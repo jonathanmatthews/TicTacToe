@@ -44,7 +44,7 @@ export class GameService {
       this.signalr.makeMove(this.gameId.value, row, column);
       return this.validMove.pipe(take(1));
     } else {
-      throw new Error("Unable to make move, not in game.");
+      throw new Error('Unable to make move, not in game.');
     }
   }
 
@@ -67,11 +67,11 @@ export class GameService {
   private registerGameEvents(): void {
     this.signalr.addedToGame.subscribe(playerNumber => this.playerNumber = playerNumber);
     this.signalr.gameStart.subscribe(() => this.inGame.next(true));
-    this.signalr.nextToMove.subscribe(nextNumber => this.myTurn.next(nextNumber == this.playerNumber));
+    this.signalr.nextToMove.subscribe(nextNumber => this.myTurn.next(nextNumber === this.playerNumber));
     this.signalr.validMove.subscribe(() => this.validMove.next(true));
 
     this.signalr.winningPlayer.subscribe(winnerNumber => {
-      this.victory.next(winnerNumber == this.playerNumber);
+      this.victory.next(winnerNumber === this.playerNumber);
       this.inGame.next(false);
     });
   }
