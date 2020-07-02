@@ -9,12 +9,14 @@ import { GameClient } from './services/game-api.service';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { HubConnectionBuilder } from '@aspnet/signalr';
 import { NoughtCrossPipe } from './pipes/nought-cross/nought-cross.pipe';
+import { GameBoardComponent } from './game-board/game-board.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GameComponent,
-    NoughtCrossPipe
+    NoughtCrossPipe,
+    GameBoardComponent
   ],
   imports: [
     BrowserModule,

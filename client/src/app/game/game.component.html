@@ -2,24 +2,12 @@
 
 <p><strong>In game: </strong>{{game.inGame | async}}</p>
 <p><strong>Game ID: </strong>{{game.gameId | async}}</p>
-<div>
-    <button (click)="joinGame()">Join</button>&nbsp;
-    <input [(ngModel)]="gameIdInput" />
-    <br>
 
-    <button (click)="createGame()">Create and Join</button>
-</div>
+<button (click)="joinGame()">Join</button>&nbsp;
+<input [(ngModel)]="gameIdInput" />
+<br>
 
-<div>
-    <button (click)="game.makeMove(0, 0)">{{(game.game | async).rows[0][0] | noughtCross}}</button>
-    <button (click)="game.makeMove(0, 1)">{{(game.game | async).rows[0][1] | noughtCross}}</button>
-    <button (click)="game.makeMove(0, 2)">{{(game.game | async).rows[0][2] | noughtCross}}</button>
-    <br />
-    <button (click)="game.makeMove(1, 0)">{{(game.game | async).rows[1][0] | noughtCross}}</button>
-    <button (click)="game.makeMove(1, 1)">{{(game.game | async).rows[1][1] | noughtCross}}</button>
-    <button (click)="game.makeMove(1, 2)">{{(game.game | async).rows[1][2] | noughtCross}}</button>
-    <br />
-    <button (click)="game.makeMove(2, 0)">{{(game.game | async).rows[2][0] | noughtCross}}</button>
-    <button (click)="game.makeMove(2, 1)">{{(game.game | async).rows[2][1] | noughtCross}}</button>
-    <button (click)="game.makeMove(2, 2)">{{(game.game | async).rows[2][2] | noughtCross}}</button>
-</div>
+<button (click)="createGame()">Create and Join</button>
+
+
+<app-game-board [rows]="(game.game | async).rows" (move)="move($event)" *ngIf="(game.gameId | async) !== ''"></app-game-board>

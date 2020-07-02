@@ -21,4 +21,8 @@ export class GameComponent implements OnInit {
   joinGame(): void {
     this.game.joinGame(this.gameIdInput);
   }
+
+  move(position: number[]): void {
+    this.game.makeMove(position[0], position[1]);
+  }
 }
