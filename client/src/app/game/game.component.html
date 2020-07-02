@@ -1,1 +1,10 @@
 <p>game works!</p>
+
+<p><strong>In game: </strong>{{game.inGame | async}}</p>
+<p><strong>Game ID: </strong>{{game.gameId | async}}</p>
+
+<button (click)="joinGame()">Join</button>&nbsp;
+<input  [(ngModel)]="gameIdInput"/>
+<br>
+
+<button (click)="createGame()">Create and Join</button>

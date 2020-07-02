@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { GameClient } from '../services/game-api.service';
+import { GameService } from '../services/game/game.service';
 
 @Component({
   selector: 'app-game',
@@ -8,10 +9,17 @@ import { GameClient } from '../services/game-api.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GameComponent implements OnInit {
+  public gameIdInput: string;
 
-  constructor(private api: GameClient) { }
+  constructor(public game: GameService) { }
+  ngOnInit(): void { }
 
-  ngOnInit(): void {
-    this.api.startGame().subscribe(result => console.log(result));
+  createGame(): void {
+    console.log("try to start");
+    this.game.createGame();
+  }
+
+  joinGame(): void {
+    this.game.joinGame(this.gameIdInput);
   }
 }

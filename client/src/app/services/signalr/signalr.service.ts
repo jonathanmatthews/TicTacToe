@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HubConnectionBuilder, HubConnection } from '@aspnet/signalr';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { GameBoard } from 'src/app/server-models/gameBoard';
@@ -7,20 +7,21 @@ import { GameBoard } from 'src/app/server-models/gameBoard';
   providedIn: 'root'
 })
 export class SignalrService {
-  public gameNotFound: Subject<void>;
-  public gameFull: Subject<void>;
-  public addedToGame: Subject<number>; // Gives player number.
-  public gameStart: Subject<void>;
-  public invalidMove: Subject<void>;
-  public gameBoard: Subject<GameBoard>;
-  public nextToMove: Subject<number>; // Gives player number.
-  public winningPlayer: Subject<number>; // Gives player number.
+  public gameNotFound = new Subject<void>();
+  public gameFull = new Subject<void>();
+  public addedToGame = new Subject<number>(); // Gives player number.
+  public gameStart = new Subject<void>();
+  public invalidMove = new Subject<void>();
+  public validMove = new Subject<void>();
+  public gameBoard = new Subject<GameBoard>();
+  public nextToMove = new Subject<number>(); // Gives player number.
+  public winningPlayer = new Subject<number>(); // Gives player number.
 
   private hub: HubConnection;
 
   constructor(hubConnectionBuilder: HubConnectionBuilder) {
     this.hub = hubConnectionBuilder
-      .withUrl('https://loclahost:5001/gamehub')
+      .withUrl('https://localhost:5001/gamehub')
       .build();
 
     this.hub
@@ -39,12 +40,13 @@ export class SignalrService {
     this.hub.invoke(gameId, row, column);
   }
 
-  private addListeners = () => {
+  private addListeners = (): void => {
     this.hub.on('gameNotFound', () => this.gameNotFound.next());
     this.hub.on('gameFull', () => this.gameFull.next());
     this.hub.on('addedToGame', (playerNumber) => this.addedToGame.next(playerNumber));
     this.hub.on('gameStart', () => this.gameStart.next());
     this.hub.on('invalidMove', () => () => this.invalidMove.next());
+    this.hub.on('validMove', () => this.validMove.next());
     this.hub.on('gameBoard', (gameBoard) => this.gameBoard.next(gameBoard));
     this.hub.on('nextToMove', (playerNumber) => this.nextToMove.next(playerNumber));
     this.hub.on('winningPlayer', (winningPlayer) => this.winningPlayer.next(winningPlayer));

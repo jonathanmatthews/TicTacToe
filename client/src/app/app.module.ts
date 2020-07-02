@@ -1,11 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GameComponent } from './game/game.component';
 import { GameClient } from './services/game-api.service';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HubConnectionBuilder } from '@aspnet/signalr';
 
 @NgModule({
   declarations: [
@@ -15,11 +17,13 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     GameClient,
-    HttpClient
+    HttpClient,
+    HubConnectionBuilder
   ],
   bootstrap: [AppComponent]
 })
