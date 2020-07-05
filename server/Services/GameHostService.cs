@@ -35,7 +35,7 @@ namespace server.Services
             catch (KeyNotFoundException)
             {
                 
-                return null;
+                game = null;
             }
 
             return game;

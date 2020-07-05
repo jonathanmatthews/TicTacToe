@@ -18,7 +18,13 @@ namespace server.SignalR
 
         public async Task ConnectToGame(string gameId)
         {
-            var game = _hostService.GetGame(Guid.Parse(gameId));
+            Guid guid;
+            GameService game = null;
+
+            if (Guid.TryParse(gameId, out guid))
+            {
+                game = _hostService.GetGame(Guid.Parse(gameId));
+            }
 
             if (game == null)
             {
@@ -51,7 +57,13 @@ namespace server.SignalR
 
         public async Task MakeMove(string gameId, int row, int column)
         {
-            var game = _hostService.GetGame(Guid.Parse(gameId));
+            Guid guid;
+            GameService game = null;
+
+            if (Guid.TryParse(gameId, out guid))
+            {
+                game = _hostService.GetGame(Guid.Parse(gameId));
+            }
 
             if (game == null)
             {
@@ -84,16 +96,6 @@ namespace server.SignalR
                 await Clients.Clients(game.ClientId1, game.ClientId2)
                     .SendAsync("winningPlayer", game.WinningPlayer);
             }
-
-            foreach (var gameRow in game.Game.Rows)
-            {
-                foreach (var cell in gameRow)
-                {
-                    System.Console.Write(cell + " ");
-                }
-                System.Console.Write("\n");
-            }
-            System.Console.Write("\n");
         }
     }
 }
