@@ -1,7 +1,7 @@
 <div class="wrapper">
     <ng-container *ngFor="let row of [0, 1, 2]">
         <ng-container *ngFor="let column of [0, 1, 2]">
-            <button (click)="move.emit([row, column])">{{rows[row][column] | noughtCross}}</button>
+            <button mat-button (click)="move.emit([row, column])">{{rows[row][column] | noughtCross}}</button>
         </ng-container>
     </ng-container>
 </div>
