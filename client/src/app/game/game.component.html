@@ -1,18 +1,18 @@
 <div class="header">
-    <h2>
+    <h1>
         TicTacToe
-    </h2>
+    </h1>
 </div>
 
 
 <div class="content">
     <p><strong>Game ID: </strong>{{game.gameId | async}}</p>
 
-    <button (click)="joinGame()">Join</button>&nbsp;
+    <button mat-button (click)="joinGame()">Join</button>&nbsp;
     <input [(ngModel)]="gameIdInput" />
     <br>
 
-    <button (click)="createGame()">Create and Join</button>
+    <button mat-button (click)="createGame()">Create and Join</button>
 </div>
 
 <app-game-board [rows]="(game.game | async).rows" (move)="move($event)" *ngIf="(game.gameId | async) !== ''">

@@ -10,6 +10,8 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { HubConnectionBuilder } from '@aspnet/signalr';
 import { NoughtCrossPipe } from './pipes/nought-cross/nought-cross.pipe';
 import { GameBoardComponent } from './game-board/game-board.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { GameBoardComponent } from './game-board/game-board.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatButtonModule
   ],
   providers: [
     GameClient,
