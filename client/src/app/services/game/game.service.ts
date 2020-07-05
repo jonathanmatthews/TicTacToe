@@ -50,7 +50,10 @@ export class GameService {
   }
 
   leaveGame() {
-    throw new Error('Not implemented.');
+    this.gameId.next('');
+    this.victory.next(false);
+    this.myTurn.next(false);
+    this.game.next(new GameBoard());
   }
 
   private registerErrorMessages(): void {

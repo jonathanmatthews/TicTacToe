@@ -1,14 +1,19 @@
-app-game-board {
+app-game-board, h2 {
     display: flex;
     justify-content: center;
 }
 
 button {
     margin-bottom: 5px;
+    background-color: lightblue;
+}
+
+input {
+    padding: 7px;
 }
 
 .content {
-    margin: 8px;
+    margin-left: 20vw;
 }
 
 .header {
@@ -19,5 +24,6 @@ button {
 
      h1 {
          color: white;
+         padding-left: 4px;
      }
 }

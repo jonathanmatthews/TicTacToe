@@ -45,6 +45,8 @@ namespace server.SignalR
                 await Clients.Caller.SendAsync("addedToGame", 2);
                 await Clients.Caller.SendAsync("gameBoard", game.Game);
                 await Clients.Clients(game.ClientId1, game.ClientId2)
+                    .SendAsync("nextToMove", game.NextToMove);
+                await Clients.Clients(game.ClientId1, game.ClientId2)
                     .SendAsync("gameStart");
                 return;
             }

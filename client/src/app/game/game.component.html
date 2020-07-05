@@ -7,13 +7,16 @@
 
 <div class="content">
     <p><strong>Game ID: </strong>{{game.gameId | async}}</p>
-
     <button mat-button (click)="joinGame()">Join</button>&nbsp;
-    <input [(ngModel)]="gameIdInput" />
+    <input [(ngModel)]="gameIdInput" (keyup.enter)="joinGame()"/>
     <br>
 
-    <button mat-button (click)="createGame()">Create and Join</button>
+    <button mat-button (click)="createGame()">Create and Join</button>&nbsp;
+    <button mat-button color="primary" (click)="game.leaveGame()" *ngIf="(game.gameId | async) !== ''">Disconnect</button>
 </div>
 
-<app-game-board [rows]="(game.game | async).rows" (move)="move($event)" *ngIf="(game.gameId | async) !== ''">
-</app-game-board>
+<h2 *ngIf="(game.gameId | async) !== ''">
+    {{(statusMessage | async)}}
+</h2>
+
+<app-game-board [rows]="(game.game | async).rows" (move)="move($event)" *ngIf="(game.gameId | async) !== ''"></app-game-board>

@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { GameClient } from '../services/game-api.service';
 import { GameService } from '../services/game/game.service';
+import { Subject, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-game',
@@ -10,10 +11,13 @@ import { GameService } from '../services/game/game.service';
 })
 export class GameComponent implements OnInit {
   public gameIdInput: string;
+  public statusMessage = new BehaviorSubject<string>('');
 
   constructor(public game: GameService) { }
   ngOnInit(): void {
     this.game.error.subscribe(err => alert(err));
+    this.game.victory.subscribe(win => this.statusMessage.next(win ? 'You win!' : 'You Lose!'));
+    this.game.myTurn.subscribe(myTurn => this.statusMessage.next(myTurn ? 'Your Turn' : 'Waiting for Opponent'));
   }
 
   createGame(): void {
