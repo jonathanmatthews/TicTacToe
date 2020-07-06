@@ -1,0 +1,45 @@
+<p>leaderboard works!</p>
+
+<table>
+    <thead>
+        <th>
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Total Games
+        </th>
+        <th>
+            Wins
+        </th>
+        <th>
+            Losses
+        </th>
+        <th>
+            Draws
+        </th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let record of playerRecords | async; let i = index;">
+            <td>
+                {{i}}
+            </td>
+            <td>
+                {{record.name}}
+            </td>
+            <td>
+                {{record | totalGames}}
+            </td>
+            <td>
+                {{record.wins}}
+            </td>
+            <td>
+                {{record.losses}}
+            </td>
+            <td>
+                {{record.draws}}
+            </td>
+        </tr>
+    </tbody>
+</table>

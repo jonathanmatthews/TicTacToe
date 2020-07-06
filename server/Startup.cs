@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using server.Infrastructure;
 using server.Services;
 using server.SignalR;
 
@@ -28,6 +29,8 @@ namespace server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            AppDbContext.ConnectionString = Configuration["connectionString"];
+
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder => builder
@@ -42,6 +45,7 @@ namespace server
             services.AddSingleton<GameHostService>();
             services.AddTransient<GameService>();
             services.AddTransient<StateCheckerService>();
+            services.AddTransient<AppDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

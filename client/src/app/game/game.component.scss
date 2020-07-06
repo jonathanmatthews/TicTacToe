@@ -1,6 +1,8 @@
 app-game-board, h2 {
-    display: flex;
-    justify-content: center;
+    // display: flex;
+    // justify-content: center;
+    margin-left: 10vw;
+    height: 0px;
 }
 
 button {
@@ -12,8 +14,13 @@ input {
     padding: 7px;
 }
 
+.wrapper {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
 .content {
-    margin-left: 20vw;
+    margin-left: 10vw;
 }
 
 .header {

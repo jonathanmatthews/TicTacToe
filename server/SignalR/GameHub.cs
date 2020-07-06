@@ -23,11 +23,12 @@ namespace server.SignalR
 
             if (Guid.TryParse(gameId, out guid))
             {
-                game = _hostService.GetGame(Guid.Parse(gameId));
+                game = _hostService.GetGame(guid);
             }
 
             if (game == null)
             {
+                Console.WriteLine("Game null");
                 await Clients.Caller.SendAsync("gameNotFound");
                 return;
             }
@@ -64,7 +65,7 @@ namespace server.SignalR
 
             if (Guid.TryParse(gameId, out guid))
             {
-                game = _hostService.GetGame(Guid.Parse(gameId));
+                game = _hostService.GetGame(guid);
             }
 
             if (game == null)

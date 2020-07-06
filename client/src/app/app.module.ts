@@ -12,13 +12,17 @@ import { NoughtCrossPipe } from './pipes/nought-cross/nought-cross.pipe';
 import { GameBoardComponent } from './game-board/game-board.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { TotalGamesPipe } from './pipes/total-games/total-games.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     GameComponent,
     NoughtCrossPipe,
-    GameBoardComponent
+    GameBoardComponent,
+    LeaderboardComponent,
+    TotalGamesPipe
   ],
   imports: [
     BrowserModule,

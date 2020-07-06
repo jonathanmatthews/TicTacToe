@@ -32,6 +32,58 @@
           }
         }
       }
+    },
+    "/Game/leaderboard": {
+      "get": {
+        "tags": [
+          "Game"
+        ],
+        "operationId": "Game_GetLeaderboard",
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PlayerRecord"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "PlayerRecord": {
+      "type": "object",
+      "required": [
+        "Id",
+        "Wins",
+        "Losses",
+        "Draws"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Wins": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Losses": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Draws": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
     }
   }
 }
