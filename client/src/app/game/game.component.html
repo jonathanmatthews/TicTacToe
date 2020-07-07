@@ -13,7 +13,7 @@
             <br>
 
             <button mat-button (click)="createGame()">Create and Join</button>&nbsp;
-            <button mat-button color="primary" (click)="game.leaveGame()"
+            <button mat-button color="primary" (click)="disconnect()"
                 *ngIf="(game.gameId | async) !== ''">Disconnect</button>
         </div>
 

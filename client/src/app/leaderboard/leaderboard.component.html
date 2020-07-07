@@ -1,5 +1,3 @@
-<p>leaderboard works!</p>
-
 <table>
     <thead>
         <th>
@@ -23,7 +21,7 @@
     <tbody>
         <tr *ngFor="let record of playerRecords | async; let i = index;">
             <td>
-                {{i}}
+                {{i + 1}}
             </td>
             <td>
                 {{record.name}}

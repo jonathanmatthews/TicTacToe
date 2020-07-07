@@ -81,23 +81,24 @@ namespace server.SignalR
             catch (InvalidOperationException e)
             {
                 await Clients.Caller.SendAsync("invalidMove", e.Message);
-            }
-            catch (ArgumentOutOfRangeException e)
-            {
-                await Clients.Caller.SendAsync("invalidMove", e.Message);
+                return;
             }
 
             await Clients.Caller
                 .SendAsync("validMove");
             await Clients.Clients(game.ClientId1, game.ClientId2)
                 .SendAsync("gameBoard", game.Game);
-            await Clients.Clients(game.ClientId1, game.ClientId2)
-                .SendAsync("nextToMove", game.NextToMove);
-            
-            if (game.WinningPlayer > 0)
+
+
+            if (game.WinningPlayer != 0)
             {
                 await Clients.Clients(game.ClientId1, game.ClientId2)
                     .SendAsync("winningPlayer", game.WinningPlayer);
+            }
+            else
+            {
+                await Clients.Clients(game.ClientId1, game.ClientId2)
+                    .SendAsync("nextToMove", game.NextToMove);
             }
         }
     }

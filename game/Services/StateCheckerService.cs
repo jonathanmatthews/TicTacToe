@@ -8,7 +8,9 @@ namespace game.Services
     {
         public int CheckGameState(GameBoard game)
         {
-            return _checkColumns(game) + _checkDiagonals(game) + _checkRows(game);
+            // Returns winning player number if there is a winner, -1 if draw, 0 if still in progress.
+            var winner =  _checkColumns(game) + _checkDiagonals(game) + _checkRows(game);
+            return winner > 0 ? winner : (_gameOver(game) ? -1 : 0);
         }
 
         private int _checkDiagonals(GameBoard game)
@@ -59,6 +61,22 @@ namespace game.Services
             }
 
             return 0;
+        }
+
+        private bool _gameOver(GameBoard game)
+        {
+            foreach (var row in game.Rows)
+            {
+                foreach (var cell in row)
+                {
+                    if (cell == 0)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
     }
 }

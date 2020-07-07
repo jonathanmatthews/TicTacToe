@@ -32,7 +32,7 @@ namespace game.Services
             }
             else
             {
-                throw new Exception("Client is not part of this game.");
+                throw new InvalidOperationException("Client is not part of this game.");
             }
         }
 
@@ -41,7 +41,7 @@ namespace game.Services
             _validateMove(playerNumber, row, column);
             Game[row, column] = playerNumber;
             WinningPlayer = _stateService.CheckGameState(Game);
-            NextToMove = WinningPlayer > 0 ? 0 :
+            NextToMove = WinningPlayer != 0 ? 0 :
                 (NextToMove == 1 ? 2 : 1);
         }
 
@@ -51,7 +51,7 @@ namespace game.Services
             {
                 throw new InvalidOperationException("The game has not yet begun.");
             }
-            if (WinningPlayer > 0)
+            if (WinningPlayer != 0)
             {
                 throw new InvalidOperationException($"The game has already been completed.");
             }
@@ -65,7 +65,7 @@ namespace game.Services
             }
             if (row > 2 || column > 2 || row < 0 || column < 0)
             {
-                throw new ArgumentOutOfRangeException("Row and column index must be between 0 and 2 inclusive.");
+                throw new InvalidOperationException("Row and column index must be between 0 and 2 inclusive.");
             }
         }
     }

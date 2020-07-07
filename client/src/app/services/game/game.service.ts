@@ -16,6 +16,7 @@ export class GameService {
   public playerNumber: number;
   public myTurn = new BehaviorSubject<boolean>(false);
   public victory = new BehaviorSubject<boolean>(false);
+  public draw = new BehaviorSubject<boolean>(false);
   public game = new BehaviorSubject<GameBoard>(new GameBoard());
   public error = new  Subject<string>();
   public gameId = new BehaviorSubject<string>('');
@@ -52,6 +53,7 @@ export class GameService {
   leaveGame() {
     this.gameId.next('');
     this.victory.next(false);
+    this.draw.next(false);
     this.myTurn.next(false);
     this.game.next(new GameBoard());
   }
@@ -75,7 +77,12 @@ export class GameService {
     this.signalr.validMove.subscribe(() => this.validMove.next(true));
     this.signalr.gameBoard.subscribe(gameBoard => this.game.next(gameBoard));
     this.signalr.winningPlayer.subscribe(winnerNumber => {
-      this.victory.next(winnerNumber === this.playerNumber);
+      if (winnerNumber > 0) {
+        this.victory.next(winnerNumber === this.playerNumber);
+      } else if (winnerNumber === -1) {
+        this.draw.next(true);
+      }
+
       this.inGame.next(false);
     });
   }
