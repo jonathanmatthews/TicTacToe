@@ -32,6 +32,7 @@ export class GameService {
     this.api.startGame().subscribe(gameId => {
       this.gameId.next(gameId);
       this.signalr.connectToGame(gameId);
+      this.myTurn.next(false);
     });
   }
 
@@ -56,6 +57,11 @@ export class GameService {
     this.draw.next(false);
     this.myTurn.next(false);
     this.game.next(new GameBoard());
+  }
+
+  submitScore(playerName: string) {
+    alert(`Score submitted for ${playerName}`);
+    this.signalr.updateLeaderboard(this.gameId.value, playerName);
   }
 
   private registerErrorMessages(): void {

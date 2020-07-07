@@ -40,6 +40,10 @@ export class SignalrService {
     this.hub.invoke('makeMove', gameId, row, column);
   }
 
+  updateLeaderboard = (gameId: string, playerName: string): void => {
+    this.hub.invoke('updateLeaderboard', playerName);
+  }
+
   private addListeners = (): void => {
     this.hub.on('gameNotFound', () => this.gameNotFound.next());
     this.hub.on('gameFull', () => this.gameFull.next());

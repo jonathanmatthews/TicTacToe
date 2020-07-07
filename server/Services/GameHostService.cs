@@ -25,20 +25,24 @@ namespace server.Services
             return gameId;
         }
 
-        public GameService GetGame(Guid gameId)
+        public GameService GetGame(string gameId)
         {
-            GameService game;
+            Guid gameGuid;
+
+            if (!Guid.TryParse(gameId, out gameGuid))
+            {
+                return null;
+            }
+
             try
             {
-                game = _games[gameId];
+                return _games[gameGuid];
             }
             catch (KeyNotFoundException)
             {
                 
-                game = null;
+                return null;
             }
-
-            return game;
         }
     }
 }

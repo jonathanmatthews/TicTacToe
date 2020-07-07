@@ -11,16 +11,31 @@ import { Subject, BehaviorSubject } from 'rxjs';
 })
 export class GameComponent implements OnInit {
   public gameIdInput: string;
+  public playerNameInput = '';
   public statusMessage = new BehaviorSubject<string>('');
 
   constructor(public game: GameService) { }
   ngOnInit(): void {
+    // The order of these matters.
     this.game.error.subscribe(err => alert(err));
-    this.game.victory.subscribe(win => this.statusMessage.next(win ? 'You win!' : 'You Lose!'));
+    this.game.gameId.subscribe(id => {
+      if (id === '') {
+      this.statusMessage.next('');
+      }
+    });
+    this.game.victory.subscribe(win => {
+      this.statusMessage.next(win ? 'You win!' : 'You Lose!');
+      if (this.playerNameInput !== '') {
+        this.game.submitScore(this.playerNameInput);
+      }
+    });
     this.game.myTurn.subscribe(myTurn => this.statusMessage.next(myTurn ? 'Your Turn' : 'Waiting for Opponent'));
     this.game.draw.subscribe(draw => {
       if (draw) {
         this.statusMessage.next('It\'s a draw!');
+        if (this.playerNameInput !== '') {
+          this.game.submitScore(this.playerNameInput);
+        }
       }
     });
   }

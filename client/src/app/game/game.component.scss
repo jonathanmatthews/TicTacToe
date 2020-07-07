@@ -5,6 +5,12 @@ app-game-board, h2 {
     height: 0px;
 }
 
+div {
+    >strong {
+        margin-left: 2px;
+    }
+}
+
 button {
     margin-bottom: 5px;
     background-color: lightblue;

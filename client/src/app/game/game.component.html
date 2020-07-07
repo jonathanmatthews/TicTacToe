@@ -10,7 +10,7 @@
             <p><strong>Game ID: </strong>{{game.gameId | async}}</p>
             <button mat-button (click)="joinGame()">Join</button>&nbsp;
             <input [(ngModel)]="gameIdInput" (keyup.enter)="joinGame()" />
-            <br>
+            <br />
 
             <button mat-button (click)="createGame()">Create and Join</button>&nbsp;
             <button mat-button color="primary" (click)="disconnect()"
@@ -26,6 +26,9 @@
     </div>
 
     <div>
+        <strong>Your Name:</strong>&nbsp;
+        <input [(ngModel)]="playerNameInput" />
+        <br />
         <app-leaderboard></app-leaderboard>
     </div>
 </div>
