@@ -9,5 +9,6 @@ dotnet watch run
 ```
 ```
 cd TicTacToe/client
+npm i
 ng serve
 ```
