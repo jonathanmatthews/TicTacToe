@@ -61,8 +61,7 @@ export class GameClient {
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            result200 = _responseText === "" ? null : <string>JSON.parse(_responseText, this.jsonParseReviver);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -109,12 +108,7 @@ export class GameClient {
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(PlayerRecord.fromJS(item));
-            }
+            result200 = _responseText === "" ? null : <PlayerRecord[]>JSON.parse(_responseText, this.jsonParseReviver);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -126,56 +120,12 @@ export class GameClient {
     }
 }
 
-export class PlayerRecord implements IPlayerRecord {
-    id!: number;
-    name?: string | undefined;
-    wins!: number;
-    losses!: number;
-    draws!: number;
-
-    constructor(data?: IPlayerRecord) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["Id"];
-            this.name = _data["Name"];
-            this.wins = _data["Wins"];
-            this.losses = _data["Losses"];
-            this.draws = _data["Draws"];
-        }
-    }
-
-    static fromJS(data: any): PlayerRecord {
-        data = typeof data === 'object' ? data : {};
-        let result = new PlayerRecord();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["Id"] = this.id;
-        data["Name"] = this.name;
-        data["Wins"] = this.wins;
-        data["Losses"] = this.losses;
-        data["Draws"] = this.draws;
-        return data; 
-    }
-}
-
-export interface IPlayerRecord {
-    id: number;
-    name?: string | undefined;
-    wins: number;
-    losses: number;
-    draws: number;
+export interface PlayerRecord {
+    Id: number;
+    Name?: string | undefined;
+    Wins: number;
+    Losses: number;
+    Draws: number;
 }
 
 export class ApiException extends Error {
