@@ -15,7 +15,6 @@ export class LeaderboardComponent implements OnInit {
     this.api.getLeaderboard()
       .subscribe(data => {
         this.playerRecords.next(data);
-        console.log(data);
       });
   }
 

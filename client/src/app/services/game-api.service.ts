@@ -121,11 +121,11 @@ export class GameClient {
 }
 
 export interface PlayerRecord {
-    Id: number;
-    Name?: string | undefined;
-    Wins: number;
-    Losses: number;
-    Draws: number;
+    id: number;
+    name?: string | undefined;
+    wins: number;
+    losses: number;
+    draws: number;
 }
 
 export class ApiException extends Error {

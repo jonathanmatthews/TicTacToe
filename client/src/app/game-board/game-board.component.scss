@@ -1,8 +1,8 @@
 .wrapper {
     display: grid;
     grid-template-columns: 33% 33% 33%;
-    width: min(50vw, 50vh);
-    height: min(50vw, 50vh);
+    width: min(39vw, 50vh);
+    height: min(39vw, 50vh);
     margin-left: 10vw;
 
     button {
@@ -10,5 +10,6 @@
         background-color: #ddd;
         border-radius: 0px;
         margin: 1px;
+        height: calc(0.33 * min(39vw, 50vh));
     }
 }
