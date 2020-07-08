@@ -15,4 +15,4 @@ ng serve
 ## TODO
 - Fix leaderboard submission.
     - Browser console suggests server error when submitting, however dotnet console logging doesn't indicate anything went wrong, or that the method was called at all.
-- Add timeout to game such that game gets deleted after AFK for too long.
+- API seems to have trouble with PlayerRecord naming convention again.

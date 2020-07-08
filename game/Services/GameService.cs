@@ -10,11 +10,13 @@ namespace game.Services
         public GameBoard Game { get; private set; }
         public int NextToMove { get; private set; }
         public int WinningPlayer { get; private set; }
+        public DateTime CreationTime { get; private set; }
         private readonly StateCheckerService _stateService;
-
+        
         public GameService(StateCheckerService stateService)
         {
             _stateService = stateService;
+            CreationTime = DateTime.Now;
             Game = new GameBoard();
             WinningPlayer = 0;
             NextToMove = 1;
