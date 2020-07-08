@@ -1,7 +1,8 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable, OnInit, Optional, Inject } from '@angular/core';
 import { HubConnectionBuilder, HubConnection } from '@aspnet/signalr';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { GameBoard } from 'src/app/server-models/gameBoard';
+import { API_BASE_URL } from '../game-api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +20,11 @@ export class SignalrService {
 
   private hub: HubConnection;
 
-  constructor(hubConnectionBuilder: HubConnectionBuilder) {
+  constructor(hubConnectionBuilder: HubConnectionBuilder, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+    baseUrl = baseUrl ? baseUrl : 'https://localhost:5001';
+
     this.hub = hubConnectionBuilder
-      .withUrl('https://localhost:5001/gamehub')
+      .withUrl(`${baseUrl}/gamehub`)
       .build();
 
     this.hub

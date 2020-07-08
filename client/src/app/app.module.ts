@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GameComponent } from './game/game.component';
-import { GameClient } from './services/game-api.service';
+import { GameClient, API_BASE_URL } from './services/game-api.service';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { HubConnectionBuilder } from '@aspnet/signalr';
 import { NoughtCrossPipe } from './pipes/nought-cross/nought-cross.pipe';
@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { TotalGamesPipe } from './pipes/total-games/total-games.pipe';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { TotalGamesPipe } from './pipes/total-games/total-games.pipe';
   providers: [
     GameClient,
     HttpClient,
-    HubConnectionBuilder
+    HubConnectionBuilder,
+    { provide: API_BASE_URL, useValue: environment.apiRoot }
   ],
   bootstrap: [AppComponent]
 })
