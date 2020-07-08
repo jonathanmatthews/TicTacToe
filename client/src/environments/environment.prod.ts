@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiRoot: ''
+  apiRoot: 'https://jm-TicTacToe-Api.azurewebsites.net'
 };
