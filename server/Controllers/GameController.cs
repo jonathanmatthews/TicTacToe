@@ -34,7 +34,7 @@ namespace server.Controllers
         public async Task<PlayerRecord[]> GetLeaderboard()
         {
             return await _context.PlayerRecords
-                .OrderBy(p => p.Wins)
+                .OrderByDescending(p => p.Wins)
                 .Take(15)
                 .ToArrayAsync();
         }

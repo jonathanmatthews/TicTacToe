@@ -60,8 +60,8 @@ export class GameService {
   }
 
   submitScore(playerName: string) {
-    alert(`Score submitted for ${playerName}`);
     this.signalr.updateLeaderboard(this.gameId.value, playerName);
+    alert(`Score submitted for ${playerName}`);
   }
 
   private registerErrorMessages(): void {

@@ -1,6 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { GameClient, PlayerRecord } from '../services/game-api.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-leaderboard',
@@ -10,14 +10,17 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class LeaderboardComponent implements OnInit {
   public playerRecords = new BehaviorSubject<PlayerRecord[]>([]);
+  @Input() public reload: Subject<void>;
 
   constructor(private api: GameClient) {
-    this.api.getLeaderboard()
-      .subscribe(data => {
-        this.playerRecords.next(data);
-      });
   }
-
   ngOnInit(): void {
+    this.reload.subscribe(() =>
+      this.api.getLeaderboard()
+        .subscribe(data => this.playerRecords.next(data))
+    );
+
+    // Make initial API call on load.
+    this.reload.next();
   }
 }

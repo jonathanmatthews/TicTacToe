@@ -13,6 +13,7 @@ export class GameComponent implements OnInit {
   public gameIdInput: string;
   public playerNameInput = '';
   public statusMessage = new BehaviorSubject<string>('');
+  public reloadLeaderboard = new Subject<void>();
 
   constructor(public game: GameService) { }
   ngOnInit(): void {
@@ -27,6 +28,7 @@ export class GameComponent implements OnInit {
       this.statusMessage.next(win ? 'You win!' : 'You Lose!');
       if (this.playerNameInput !== '') {
         this.game.submitScore(this.playerNameInput);
+        setTimeout(() => this.reloadLeaderboard.next(), 1000);
       }
     });
     this.game.myTurn.subscribe(myTurn => this.statusMessage.next(myTurn ? 'Your Turn' : 'Waiting for Opponent'));
@@ -35,6 +37,7 @@ export class GameComponent implements OnInit {
         this.statusMessage.next('It\'s a draw!');
         if (this.playerNameInput !== '') {
           this.game.submitScore(this.playerNameInput);
+          setTimeout(() => this.reloadLeaderboard.next(), 1000);
         }
       }
     });
