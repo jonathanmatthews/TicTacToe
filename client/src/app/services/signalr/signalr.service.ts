@@ -44,7 +44,7 @@ export class SignalrService {
   }
 
   updateLeaderboard = (gameId: string, playerName: string): void => {
-    this.hub.invoke('updateLeaderboard', playerName);
+    this.hub.invoke('updateLeaderboard', gameId, playerName);
   }
 
   private addListeners = (): void => {
